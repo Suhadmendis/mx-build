@@ -3,7 +3,9 @@ class Pages extends CI_Controller {
 		public function index()
 		{
 
-			$this->load->view("main_view");
+			$this->load->model("main_model");
+			$data["fetch_data"] = $this->main_model->fetch_data();
+			$this->load->view("main_view", $data);
 			// $this->home();
 			// $this->view();
 			// $this->load->model("main_model");
@@ -45,6 +47,22 @@ class Pages extends CI_Controller {
 			$this->index();
 			
 		}
+		public function delete_data()
+		{
+
+			$id = $this->uri->segment(3);
+			$this->load->model("main_model");
+			$this->main_model->delete_data($id);
+			redirect(base_url() . "pages/deleted");
+			
+		}
+		public function deleted()
+		{
+
+			$this->index();
+			
+		}
+
 
 
 
